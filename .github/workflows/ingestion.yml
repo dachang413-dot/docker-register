@@ -1,0 +1,36 @@
+name: Copy Image to Aliyun
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  copy-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 回归最稳妥的 apt 安装方式
+      - name: Install skopeo
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y skopeo
+      # 新增这一步：先登录 Docker Hub，解决拉取被拒问题
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Login to Aliyun Registry
+        uses: docker/login-action@v3
+        with:
+          registry: registry.cn-hangzhou.aliyuncs.com
+          username: dachangren
+          password: Qwe!234567
+          logout: false
+
+      - name: Copy OpenMetadata Image
+        run: |
+          skopeo copy docker://openmetadata/ingestion:1.12.6 docker://registry.cn-hangzhou.aliyuncs.com/dachang_ren/ingestion:1.12.6
