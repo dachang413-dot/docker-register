@@ -13,19 +13,14 @@ jobs:
       - name: Install skopeo
         run: sudo apt update && sudo apt install -y skopeo
 
-      # 已经删除了多余的 Set up Docker Buildx 步骤
-
       - name: Login to Aliyun Registry
         uses: docker/login-action@v3
         with:
-          registry: registry.cn-hangzhou.aliyuncs.com #注意这里
+          registry: registry.cn-hangzhou.aliyuncs.com
           username: dachangren
           password: Qwe!234567
-          logout:  false
-        
+          logout: false
+
       - name: Copy OpenMetadata Image
-      run: |
-         skopeo copy docker://openmetadata/openmetadata:1.12.6 
-         docker://registry.cn-hangzhou.aliyuncs.com/dachang_ren/openmetadata:1.12.6
-      # 使用 skopeo 工具将镜像同步到阿里云个人仓库中，使用时请自行源和目标修改仓库名称和镜像名称
- 
+        run: |
+          skopeo copy docker://openmetadata/openmetadata:1.12.6 docker://registry.cn-hangzhou.aliyuncs.com/dachang_ren/openmetadata:1.12.6
