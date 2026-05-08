@@ -10,11 +10,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 回归最稳妥的 apt 安装方式
       - name: Install skopeo
         run: |
-          curl -sL https://github.com/containers/skopeo/releases/download/v1.16.1/skopeo-linux-amd64 -o skopeo
-          chmod +x skopeo
-          sudo mv skopeo /usr/local/bin/
+          sudo apt-get update
+          sudo apt-get install -y skopeo
 
       # 新增这一步：先登录 Docker Hub，解决拉取被拒问题
       - name: Login to Docker Hub
