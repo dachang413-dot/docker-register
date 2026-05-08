@@ -34,4 +34,4 @@ jobs:
 
       - name: Copy OpenMetadata Image
         run: |
-          skopeo copy docker://openmetadata/openmetadata:1.12.6 docker://registry.cn-hangzhou.aliyuncs.com/dachang_ren/openmetadata:1.12.6
+          skopeo copy docker://openmetadata/server:1.12.6 docker://registry.cn-hangzhou.aliyuncs.com/dachang_ren/openmetadata:1.12.6
