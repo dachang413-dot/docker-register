@@ -33,4 +33,4 @@ jobs:
 
       - name: Copy OpenMetadata Image
         run: |
-          skopeo copy docker://elasticsearch/elasticsearch:9.3.0 docker://registry.cn-hangzhou.aliyuncs.com/dachang_ren/elasticsearch:9.3.0
+          skopeo copy docker://docker.elastic.co/elasticsearch/elasticsearch:9.3.0 docker://registry.cn-hangzhou.aliyuncs.com/dachang_ren/elasticsearch:9.3.0
